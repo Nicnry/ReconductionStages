@@ -12,18 +12,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Params;
 use Faker\Provider\DateTime;
+use Carbon\Carbon;
+use App\Internship;
+use App\Contractstates;
 
 class ReconStagesController extends Controller
 {
     // index, base route
     public function index()
     {
-        $internships = $this->getInternships();
-        return view('reconstages/reconstages')->with(
-            [
-                "internships" => $internships
-            ]
-        );
+        /* $internships = $this->getInternships(); */
+        /* Return value from model Internship */
+        $internships = Internship::all()->where('contractstate_id', '2');
+
+
+        // $tutu = Contractstates::all();
+        // dd($tutu);
+
+        return view('reconstages/reconstages')->with("internships",$internships);
     }
 
     //return to view reconmade

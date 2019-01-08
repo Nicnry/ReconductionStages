@@ -44,4 +44,12 @@ class Internship extends Model
     {
         return $this->belongsTo('App\Persons', 'responsible_id');
     }
+
+    /**
+     * Relation with the contractstates model
+     */
+    public function contractstate()
+    {
+        return $this->belongsTo('App\Contractstates', 'contractstate_id');
+    }
 }
