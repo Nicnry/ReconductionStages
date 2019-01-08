@@ -43,13 +43,8 @@
             </tbody>
         
         </table>
-<<<<<<< Updated upstream
-        <button id="reconduire" type="submit" class="btn btn-primary">Reconduire</button>
-        <div class="checkBox"><input type="checkbox" id="check" >Select All</input></div>
-=======
-        <button class="btn btn-default" id="reconduire" type="submit">Reconduire</button>
-        <div class="checkBox"><input type="checkbox" id="check">Select All</input></div>
->>>>>>> Stashed changes
+        <button class="btn btn-primary" id="reconduire" type="submit">Reconduire</button>
+        <div class="checkBox"><input type="checkbox" id="check">Select All</div>
     </form>
     
 
