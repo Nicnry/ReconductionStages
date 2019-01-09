@@ -18,16 +18,14 @@
     }],
     "require": {
         "php": ">=7.0.0",
-        "barryvdh/laravel-dompdf": "^0.8.1",
         "components/jquery": "2.*",
         "dompdf/dompdf": "^0.8.2",
-        "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
         "nimbly/activeresource": "^1.1",
         "phurni/phpactiveresource": "1.0.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",

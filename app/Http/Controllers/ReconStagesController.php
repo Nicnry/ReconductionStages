@@ -8,24 +8,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Params;
+use Illuminate\Http\Request;
 use Faker\Provider\DateTime;
-use Carbon\Carbon;
-use App\Internship;
 use App\Contractstates;
+use App\Internship;
+use Carbon\Carbon;
+use App\Params;
+use App\Persons;
 
 class ReconStagesController extends Controller
 {
     // index, base route
     public function index()
     {
+        $now = new Carbon();
         /* $internships = $this->getInternships(); */
         /* Return value from model Internship */
-        $internships = Internship::all()->where('contractstate_id', '2');
-
-
+        $internships = Internship::all()->where('contractstate_id', '12');
         // $tutu = Contractstates::all();
         // dd($tutu);
 

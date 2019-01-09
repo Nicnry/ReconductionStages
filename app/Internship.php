@@ -8,6 +8,11 @@ class Internship extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = [
+        'intern_id'
+    ];
+
+
     /**
      * Eloquent will automaticaly convert this colums of the model in Carbon dates
      */
@@ -43,6 +48,14 @@ class Internship extends Model
     public function responsible()
     {
         return $this->belongsTo('App\Persons', 'responsible_id');
+    }
+
+    /**
+     * Relation to retrive the internship admin
+     */
+    public function admin()
+    {
+        return $this->belongsTo('App\Persons', 'admin_id');
     }
 
     /**

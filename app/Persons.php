@@ -14,12 +14,18 @@ class Persons extends Model
 
     public $timestamps = false;
     
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'role'
+    ];
+    
     /**
      * Relation to the internship of the student
      */
     public function internships()
     {
-        return $this->hasMany('App\Internship', 'intern_id');
+        return $this->hasMany('App\Internship');
     }
 
     /**

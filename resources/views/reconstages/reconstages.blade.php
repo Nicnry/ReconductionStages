@@ -18,6 +18,7 @@
                 <tr>
                     <th>Entreprise</th>
                     <th>Début</th>
+                    <th>Fin</th>
                     <th>Responsable administratif</th>
                     <th>Responsable</th>
                     <th>Stagiaire</th>
@@ -30,6 +31,27 @@
             <tbody>
                 @foreach ($internships as $internship)
                     <tr>
+                        <td class="{{ $internship->student['firstname'] }}">Company</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->beginDate }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->endDate }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->responsible['firstname'] }} {{ $internship->responsible['lastname'] }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->admin['firstname'] }} {{ $internship->admin['lastname'] }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->student['firstname'] }} {{ $internship->student['lastname'] }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->grossSalary }}</td>
+                        <td class="{{ $internship->student['firstname'] }}">{{ $internship->contractstate_id }}</td>
+                        <td><input class="checkList" name="internshipId-{{ $internship->id }}" value="{{ $internship->id }}" type="checkbox"></td>
+                    </tr>
+                @endforeach
+                {{-- @foreach ($internships as $internship)
+                    <tr>
+                        <td class="{{ $internship->companyName }}">{{ $internship->companies_id }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->beginDate }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->endDate }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->admin_id }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->responsible_id }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->grossSalary }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->intern_id }}</td>
+                        <td class="{{ $internship->companyName }}">{{ $internship->contractstate_id }}</td>
                         <td class="{{ $internship->companyName }}">{{ $internship->companyName }}</td>
                         <td class="{{ strftime("%b %g", strtotime($internship->beginDate)) }}">{{ strftime("%b %g", strtotime($internship->beginDate)) }}</td>
                         <td class="{{ $internship->arespfirstname }}-{{ $internship->aresplastname }}">{{ $internship->arespfirstname }} {{ $internship->aresplastname }}</td>
@@ -39,7 +61,7 @@
                         <td class="{{ $internship->stateDescription }}">{{ $internship->stateDescription }}</td>
                         <td><input class="checkList" name="internshipId-{{ $internship->id }}" value="{{ $internship->id }}" type="checkbox"></td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         
         </table>

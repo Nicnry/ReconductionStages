@@ -8,6 +8,10 @@ class Contractstates extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = [
+        'stateDescription'
+    ];
+
     /**
      * Relation with the internship model
      */
