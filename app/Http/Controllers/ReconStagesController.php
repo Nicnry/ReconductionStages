@@ -23,11 +23,7 @@ class ReconStagesController extends Controller
     public function index()
     {
         $now = new Carbon();
-        /* $internships = $this->getInternships(); */
-        /* Return value from model Internship */
         $internships = Internship::all()->where('contractstate_id', '12');
-        // $tutu = Contractstates::all();
-        // dd($tutu);
 
         return view('reconstages/reconstages')->with("internships",$internships);
     }
