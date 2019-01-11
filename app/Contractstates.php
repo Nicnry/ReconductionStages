@@ -9,7 +9,8 @@ class Contractstates extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'stateDescription'
+        'stateDescription',
+        'OpenForRenewal'
     ];
 
     /**

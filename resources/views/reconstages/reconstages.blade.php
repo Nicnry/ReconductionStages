@@ -39,7 +39,7 @@
                         <td>{{ $internship->student['firstname'] }} {{ $internship->student['lastname'] }}</td>
                         <td>{{ $internship->grossSalary }}</td>
                         <td>{{ $internship->contractstate['stateDescription'] }}</td>
-                        <td><input class="checkList" name="internshipId-{{ $internship->id }}" value="{{ $internship->id }}" type="checkbox"></td>
+                        <td><input class="checkList" name="internshipId" value="{{ $internship->id }}" type="checkbox"></td>
                     </tr>
                 @endforeach
             </tbody>

@@ -23,9 +23,31 @@ class ReconStagesController extends Controller
     public function index()
     {
         $now = new Carbon();
-        $internships = Internship::all()->whereIn('contractstate_id', [12, 10, 9, 8]);
+        $states = $this->getContract(1);
+        $internships = Internship::all()->whereIn('contractstate_id', $states);
 
-        return view('reconstages/reconstages')->with("internships",$internships);
+        return view('reconstages.reconstages')->with(compact("internships"));
+    }
+
+    /* Get the contract */
+    public function getContract($value) {
+        $contractStates = Contractstates::all();
+        foreach ($contractStates as $contract) {
+            if ($contract->openForRenewal === $value) {
+                $states[] = $contract->id;
+            }
+        }
+        /* Contract states by openForRenewal */
+        return $states;
+    }
+
+    public function reconducted(Request $request) {
+        $studentId = $request->all();
+        $internship = new Internship;
+        $internship->companies_id = $request->internshipId;
+        dd($request->internshipId);
+        $internship->save();
+        return view('reconstages.reconmade');
     }
 
     //Send value to reconMade page with function displayRecon()

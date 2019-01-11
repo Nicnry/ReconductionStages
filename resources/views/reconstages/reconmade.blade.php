@@ -26,7 +26,7 @@
             <th>Etat</th>
         </tr>
         
-    @foreach ($internships as $internship)
+    {{-- @foreach ($internships as $internship)
     <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
         <tr>
             <td class="{{ $internship->companyName }}">{{ $internship->companyName }}</td>
@@ -39,7 +39,7 @@
             <td>New salary</td>
             <td class="{{ $internship->stateDescription }}">Reconduit</td>
         </tr>
-    @endforeach
+    @endforeach --}}
     </table>
     <a href="/"><button class="btn btn-default">Retour à la page d'accueil</button></a>
 @stop
