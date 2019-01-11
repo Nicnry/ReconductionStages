@@ -23,61 +23,9 @@ class ReconStagesController extends Controller
     public function index()
     {
         $now = new Carbon();
-        $internships = Internship::all()->where('contractstate_id', '12');
+        $internships = Internship::all()->whereIn('contractstate_id', [12, 10, 9, 8]);
 
         return view('reconstages/reconstages')->with("internships",$internships);
-    }
-
-    //return to view reconmade
-    //public function displayStages()
-    //{
-    //    return view('reconstages/reconmade');
-    //}
-
-
-    //get value from db
-    public function getInternships(){
-        //get value from table Params to put them in SQL request
-        foreach(Params::all() as $param)
-        {
-            if($param->paramName == "reconductible")
-            {
-                $selectable[] = $param->paramValueInt;
-            }
-        }
-        
-        //requete de récuperation des données dans la base de donnée
-        $internships = DB::table('internships')
-        ->join('companies', 'companies_id', '=', 'companies.id')
-        ->join('persons as admresp', 'admin_id', '=', 'admresp.id')
-        ->join('persons as intresp', 'responsible_id', '=', 'intresp.id')
-        ->join('persons as student', 'intern_id', '=', 'student.id')
-        ->join('contractstates', 'contractstate_id', '=', 'contractstates.id')
-        ->whereIn('contractstate_id', $selectable)
-        ->select(
-            'internships.id',
-            'beginDate',
-            'endDate',
-            'grossSalary',
-            'companyName',
-            'admresp.firstname as arespfirstname',
-            'admresp.lastname as aresplastname',
-            'intresp.firstname as irespfirstname',
-            'intresp.lastname as iresplastname',
-            'student.firstname as studentfirstname',
-            "student.id",
-            'student.lastname as studentlastname',
-            'contractstate_id',
-            'stateDescription',
-            'companies_id',
-            'responsible_id',
-            'admin_id',
-            'previous_id',
-            'internshipDescription',
-            'contracts_id')
-        ->get();
-
-        return $internships;
     }
 
     //Send value to reconMade page with function displayRecon()
