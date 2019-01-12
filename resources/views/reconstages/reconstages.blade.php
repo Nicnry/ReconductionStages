@@ -30,16 +30,16 @@
             
             <tbody>
                 @foreach ($internships as $internship)
-                    <tr class="{{ strtolower($internship->student['initials']) }}">
-                        <td>{{ $internship->companie['companyName'] }}</td>
-                        <td>{{ $internship->beginDate }}</td>
-                        <td>{{ $internship->endDate }}</td>
-                        <td>{{ $internship->responsible['firstname'] }} {{ $internship->responsible['lastname'] }}</td>
-                        <td>{{ $internship->admin['firstname'] }} {{ $internship->admin['lastname'] }}</td>
-                        <td>{{ $internship->student['firstname'] }} {{ $internship->student['lastname'] }}</td>
-                        <td>{{ $internship->grossSalary }}</td>
-                        <td>{{ $internship->contractstate['stateDescription'] }}</td>
-                        <td><input class="checkList" name="internshipId" value="{{ $internship->id }}" type="checkbox"></td>
+                    <tr class="{{ strtolower($internship->student->initials) }}">
+                        <td><input name="" value="" type="hidden">{{ $internship->companie->companyName }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->beginDate }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->endDate }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->responsible->firstname }} {{ $internship->responsible->lastname }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->admin->firstname }} {{ $internship->admin->lastname }}</td>
+                        <td>{{ $internship->student->firstname }} {{ $internship->student->lastname }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->grossSalary }}</td>
+                        <td><input name="" value="" type="hidden">{{ $internship->contractstate->stateDescription }}</td>
+                        <td><input class="checkList" name="internships[]" value="{{ $internship->id }}" type="checkbox"></td>
                     </tr>
                 @endforeach
             </tbody>

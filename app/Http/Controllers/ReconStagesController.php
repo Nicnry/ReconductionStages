@@ -41,13 +41,24 @@ class ReconStagesController extends Controller
         return $states;
     }
 
+    /* Page called by reconstages.reconmade */
     public function reconducted(Request $request) {
-        $studentId = $request->all();
-        $internship = new Internship;
-        $internship->companies_id = $request->internshipId;
-        dd($request->internshipId);
-        $internship->save();
-        return view('reconstages.reconmade');
+        $tutu = $request->all();
+        foreach ($tutu['internships'] as $value) {
+             $reconductable[] = $value;
+        }
+        $reconductible = Internship::all()->whereIn('id', $reconductable);
+        $internshipId = array();
+        foreach($request->all() as $value) {
+            array_push($internshipId, $value);
+        }
+        // array_shift($internshipId);
+        // dd($internshipId);
+        // $internship = new Internship;
+        // $internship->companies_id = $request->internshipId;
+        // dd($request->internshipId);
+        // $internship->save();
+        return view('reconstages.reconmade')->with(compact('reconductible'));
     }
 
     //Send value to reconMade page with function displayRecon()

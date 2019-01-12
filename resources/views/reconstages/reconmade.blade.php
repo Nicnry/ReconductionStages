@@ -25,6 +25,7 @@
             <th>Nouveau salaire</th>
             <th>Etat</th>
         </tr>
+        {{dd($reconductible)}}
         
     {{-- @foreach ($internships as $internship)
     <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->

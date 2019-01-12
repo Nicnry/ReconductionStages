@@ -9,6 +9,7 @@ class Internship extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'intern_id'
     ];
 
