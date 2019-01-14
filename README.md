@@ -25,7 +25,8 @@ USER_ID=1234
 USER_INITIALS='ABC'
 USER_LEVEL=1
 ```
-7. If you don't use mysql 8, please go on 'config/database.php' and change this :
+7. Generate your key `php artisan key:generate`
+8. If you don't use mysql 8, please go on 'config/database.php' and change this :
 ```php
 'mysql' => [
   'driver' => 'mysql',
