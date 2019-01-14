@@ -6,9 +6,9 @@ For more information, please go to this [repo](https://github.com/XCarrel/larast
 
 ## Install
 1. Clone this repo.
-2. Open Workbench model in 'database' folder and export the schema.
-3. Set your new DB as default db.
-4. Execute the sql file in 'database' folder.
+2. Open Workbench model in 'database' folder and export the schema "Stages v2.mwb"  .
+3. Set your new DB (app_internships2) as default db.
+4. Execute the sql file in 'database' folder "testdata.sql".
 5. Open your terminal and go :
 ```bash
 cd /path/to/your/local/clone/of/larasta
