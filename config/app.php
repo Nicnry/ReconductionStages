@@ -192,7 +192,7 @@ return [
         /*
          *  pdf
          */
-        Barryvdh\DomPDF\ServiceProvider::class,
+        /* Barryvdh\DomPDF\ServiceProvider::class, */
     ],
 
     /*

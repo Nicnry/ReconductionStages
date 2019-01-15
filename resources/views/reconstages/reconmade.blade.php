@@ -10,7 +10,7 @@
 @stop
 
 @section ('content')
-    <a href="/reconstages">Reconduction page</a></br>
+    <a href="/reconstages">Reconduction page</a>
     <h1>Reconduction effectuée</h1>
 
     <table class="reconduction">
