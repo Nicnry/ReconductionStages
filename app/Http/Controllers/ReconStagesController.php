@@ -43,22 +43,38 @@ class ReconStagesController extends Controller
 
     /* Page called by reconstages.reconmade */
     public function reconducted(Request $request) {
-        $tutu = $request->all();
-        foreach ($tutu['internships'] as $value) {
-             $reconductable[] = $value;
+
+        /* New Internship */
+        $tutu = new Internship();
+        $tutu->companies_id=25;
+        $tutu->beginDate='1970-01-01 00:00:01';
+        $tutu->endDate='1970-01-01 00:00:01';
+        $tutu->responsible_id=350;
+        $tutu->admin_id=360;
+        $tutu->intern_id=361;
+        $tutu->contractstate_id=1;
+        $tutu->previous_id=25;
+        $tutu->internshipDescription='swag';
+        $tutu->grossSalary=1250;
+        $tutu->contractGenerated=0;
+        $tutu->save();
+
+        /* Count number of reconductible data */
+        $i = 0;
+        $rInternships = $request->all();
+
+        /* Know how much student will be created */
+        foreach($rInternships['internships'] as $value) {
+            $i++;
+            $reconductable[] = $value;
         }
+        /* Create internships */
+
+
+
+        $last = Internship::orderBy('id', 'desc')->take($i)->get();
         $reconductible = Internship::all()->whereIn('id', $reconductable);
-        $internshipId = array();
-        foreach($request->all() as $value) {
-            array_push($internshipId, $value);
-        }
-        // array_shift($internshipId);
-        // dd($internshipId);
-        // $internship = new Internship;
-        // $internship->companies_id = $request->internshipId;
-        // dd($request->internshipId);
-        // $internship->save();
-        return view('reconstages.reconmade')->with(compact('reconductible'));
+        return view('reconstages.reconmade')->with(compact('reconductible', 'last'));
     }
 
     //Send value to reconMade page with function displayRecon()
