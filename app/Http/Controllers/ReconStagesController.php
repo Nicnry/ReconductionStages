@@ -45,37 +45,15 @@ class ReconStagesController extends Controller
         /* Count number of reconductible data */
         $i = 0;
 
-        /* Set Carbon dates */
-        /* 
-        Début stage =  01-09-yyyy
-        Fin stage = 31-01-yyyy
-
-        Début stage = 01-02-yyyy
-        Fin stage = 31-08-yyyy
-        */
-        $firstMonth = array(
-            /* YYYY-02-01 */
-            'start' => Params::getInternshipMonth('internship1Start'),
-            /* YYYY-08-31 */
-            'end' => Params::getInternshipMonth('internship1End')
-        );
-
-        $lastMonth = array(
-            /* YYYY-09-01 */
-            'start' => Params::getInternshipMonth('internship2Start'),
-            /* YYYY-01-31 */
-            'end' => Params::getInternshipMonth('internship2End')
-        );
-
-        $date = Params::getInternshipMonth('internship1Start');
-
         /* 
             Prendre mois stage en cours et check avec mois start db
             comparer, si egale, changer, sinon, utiliser la date de la db
             Attention à l'année dans la db est à 2000, changer pour la date de stage.
         */
 
-        
+        $month = $this->getMonthInternship(Params::getParamByName('internship1Start'));
+
+        dd($month);
         foreach($request->internships as $value) {
             $i++;
             $chosen[] = $value;
@@ -106,6 +84,21 @@ class ReconStagesController extends Controller
         $last = Internship::orderBy('id', 'desc')->take($i)->get();
         $selected = Internship::all()->whereIn('id', $chosen);
         return view('reconstages.reconmade')->with(compact('selected', 'last'));
+    }
+
+    /**
+     * Get date who's be converted to string and return only the month
+     * @param value mixed value
+     * 
+     * @author Benjamin Delacombaz
+     * @return STRING string with month
+     */
+
+    public function getMonthInternship($value) {
+        $splitTimeStamp = explode(" ",$value);
+        $date = $splitTimeStamp[0];
+        $date = explode('-', $date);
+        return $date[1];
     }
 
     //Send value to reconMade page with function displayRecon()
