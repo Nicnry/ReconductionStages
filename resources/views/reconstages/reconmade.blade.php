@@ -14,17 +14,34 @@
     <h1>Nouvelles données :</h1>
 
     <table class="reconduction">
-        <tr>
-            <th>Entreprise</th>
-            <th>Stagiaire</th>
-        </tr>
-        {{-- @foreach ($reconductible as $internship)
-        <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
+        <thead>
             <tr>
-                <td class="{{ $internship->companyName }}">{{ $internship->companie->companyName }}</td>
-                <td class="{{ $internship->studentfirstname }}-{{ $internship->studentlastname }}">{{ $internship->student->firstname }} {{ $internship->student->lastname }}</td>
+                <th>Entreprise</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Responsable administratif</th>
+                <th>Responsable</th>
+                <th>Stagiaire</th>
+                <th>Salaire</th>
+                <th>Etat</th>
             </tr>
-        @endforeach --}}
+        </thead>
+        <tbody>
+
+            @foreach ($last as $value)
+            <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
+                <tr class="{{ strtolower($value->student->initials) }}">
+                    <td>{{ $value->companie->companyName }}</td>
+                    <td>{{ $value->beginDate }}</td>
+                    <td>{{ $value->endDate }}</td>
+                    <td>{{ $value->responsible->firstname }} {{ $value->responsible->lastname }}</td>
+                    <td>{{ $value->admin->firstname }} {{ $value->admin->lastname }}</td>
+                    <td>{{ $value->student->firstname }} {{ $value->student->lastname }}</td>
+                    <td>{{ $value->grossSalary }}</td>
+                    <td>{{ $value->contractstate->stateDescription }}</td>
+                </tr>
+            @endforeach
+        </tbody>
     </table>
 
     <h2>Reconduction effectuée de :</h2>
@@ -35,7 +52,7 @@
             <th>Stagiaire</th>
         </tr>
         
-    @foreach ($reconductible as $internship)
+    @foreach ($selected as $internship)
     <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
         <tr>
             <td class="{{ $internship->companyName }}">{{ $internship->companie->companyName }}</td>

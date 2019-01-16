@@ -22,7 +22,6 @@ class ReconStagesController extends Controller
     // index, base route
     public function index()
     {
-        $now = new Carbon();
         $states = $this->getContract(1);
         $internships = Internship::all()->whereIn('contractstate_id', $states);
 
@@ -43,38 +42,70 @@ class ReconStagesController extends Controller
 
     /* Page called by reconstages.reconmade */
     public function reconducted(Request $request) {
-
-        /* New Internship */
-        $tutu = new Internship();
-        $tutu->companies_id=25;
-        $tutu->beginDate='1970-01-01 00:00:01';
-        $tutu->endDate='1970-01-01 00:00:01';
-        $tutu->responsible_id=350;
-        $tutu->admin_id=360;
-        $tutu->intern_id=361;
-        $tutu->contractstate_id=1;
-        $tutu->previous_id=25;
-        $tutu->internshipDescription='swag';
-        $tutu->grossSalary=1250;
-        $tutu->contractGenerated=0;
-        $tutu->save();
-
         /* Count number of reconductible data */
         $i = 0;
-        $rInternships = $request->all();
 
-        /* Know how much student will be created */
-        foreach($rInternships['internships'] as $value) {
+        /* Set Carbon dates */
+        /* 
+        Début stage =  01-09-yyyy
+        Fin stage = 31-01-yyyy
+
+        Début stage = 01-02-yyyy
+        Fin stage = 31-08-yyyy
+        */
+        $firstMonth = array(
+            /* YYYY-02-01 */
+            'start' => Params::getInternshipMonth('internship1Start'),
+            /* YYYY-08-31 */
+            'end' => Params::getInternshipMonth('internship1End')
+        );
+
+        $lastMonth = array(
+            /* YYYY-09-01 */
+            'start' => Params::getInternshipMonth('internship2Start'),
+            /* YYYY-01-31 */
+            'end' => Params::getInternshipMonth('internship2End')
+        );
+
+        $date = Params::getInternshipMonth('internship1Start');
+
+        /* 
+            Prendre mois stage en cours et check avec mois start db
+            comparer, si egale, changer, sinon, utiliser la date de la db
+            Attention à l'année dans la db est à 2000, changer pour la date de stage.
+        */
+
+        
+        foreach($request->internships as $value) {
             $i++;
-            $reconductable[] = $value;
+            $chosen[] = $value;
+            // if($current == $date) {
+            //     $newDate = $date+1;
+
+            // }
+            
+            /* Get value of chosen */
+            $old = Internship::find($value);
+
+            /* Create new internship with old value */
+            $new = new Internship();
+            $new->companies_id = $old->companie->id;
+            $new->beginDate = $old->beginDate;
+            $new->endDate = $old->endDate;
+            $new->responsible_id = $old->responsible->id;
+            $new->admin_id = $old->admin->id;
+            $new->intern_id = $old->student->id;
+            $new->contractstate_id = 2;
+            $new->previous_id = $value;
+            $new->internshipDescription = $old->internshipDescription;
+            $new->grossSalary = 1650;
+            $new->contractGenerated = 0;
+            $new->save();
         }
-        /* Create internships */
-
-
 
         $last = Internship::orderBy('id', 'desc')->take($i)->get();
-        $reconductible = Internship::all()->whereIn('id', $reconductable);
-        return view('reconstages.reconmade')->with(compact('reconductible', 'last'));
+        $selected = Internship::all()->whereIn('id', $chosen);
+        return view('reconstages.reconmade')->with(compact('selected', 'last'));
     }
 
     //Send value to reconMade page with function displayRecon()
