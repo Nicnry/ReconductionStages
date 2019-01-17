@@ -20,6 +20,7 @@
         "php": ">=7.0.0",
         "components/jquery": "2.*",
         "dompdf/dompdf": "^0.8.2",
+        "fideloper/proxy": "^4.1",
         "laravel/framework": "5.5.*",
         "nimbly/activeresource": "^1.1",
         "phurni/phpactiveresource": "1.0.0"
