@@ -42,41 +42,62 @@ class ReconStagesController extends Controller
 
     /* Page called by reconstages.reconmade */
     public function reconducted(Request $request) {
-        /* Count number of reconductible data */
         $i = 0;
-
+        $yearToSub = Carbon::createFromFormat('Y-m-d H:i:s', Params::getParamByName('internship1Start')->paramValueDate);
+        $yearToSub = $yearToSub->year;
         /* 
             Prendre mois stage en cours et check avec mois start db
             comparer, si egale, changer, sinon, utiliser la date de la db
             Attention à l'année dans la db est à 2000, changer pour la date de stage.
         */
 
-        $month = $this->getMonthInternship(Params::getParamByName('internship1Start'));
-
-        dd($month);
         foreach($request->internships as $value) {
             $i++;
             $chosen[] = $value;
-            // if($current == $date) {
-            //     $newDate = $date+1;
 
-            // }
-            
-            /* Get value of chosen */
+            /* Get value of chosen one */
             $old = Internship::find($value);
+            $now = Carbon::now();
+            $internship1Start = Carbon::createFromFormat('Y-m-d H:i:s', Params::getParamByName('internship1Start')->paramValueDate);
+            $internship1End = Carbon::createFromFormat('Y-m-d H:i:s', Params::getParamByName('internship1End')->paramValueDate);
+            $internship2Start = Carbon::createFromFormat('Y-m-d H:i:s', Params::getParamByName('internship2Start')->paramValueDate);
+            $internship2End = Carbon::createFromFormat('Y-m-d H:i:s', Params::getParamByName('internship2End')->paramValueDate);
 
+            $oldMonth = Carbon::createFromFormat('Y-m-d H:i:s', $old->beginDate);
+            if ($internship1Start->month == $oldMonth->month) {
+                /* Change year for the end */
+                $newInternshipDate1 = $internship2Start->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $newInternshipDate2 = $internship2End->subYear($yearToSub)->addYear(Carbon::now()->year + 1);
+                $salary = Params::getParamByName('internship2Salary')->paramValueInt;
+                
+            } else if ($internship2Start->month == $oldMonth->month) {
+                $newInternshipDate1 = $internship1Start->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $newInternshipDate2 = $internship1End->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $salary = Params::getParamByName('internship1Salary')->paramValueInt;
+            } else if ($oldMonth->month > 9){
+                /* Change year for the end */
+                $newInternshipDate1 = $internship2Start->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $newInternshipDate2 = $internship2End->subYear($yearToSub)->addYear(Carbon::now()->year + 1);
+                $salary = Params::getParamByName('internship2Salary')->paramValueInt;
+            } else {
+                $newInternshipDate1 = $internship1Start->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $newInternshipDate2 = $internship1End->subYear($yearToSub)->addYear(Carbon::now()->year);
+                $salary = Params::getParamByName('internship1Salary')->paramValueInt;
+                
+            }
+            
             /* Create new internship with old value */
             $new = new Internship();
             $new->companies_id = $old->companie->id;
-            $new->beginDate = $old->beginDate;
-            $new->endDate = $old->endDate;
+            $new->beginDate = $newInternshipDate1;
+            $new->endDate = $newInternshipDate2;
             $new->responsible_id = $old->responsible->id;
             $new->admin_id = $old->admin->id;
             $new->intern_id = $old->student->id;
             $new->contractstate_id = 2;
             $new->previous_id = $value;
             $new->internshipDescription = $old->internshipDescription;
-            $new->grossSalary = 1650;
+            $new->grossSalary = $salary;
             $new->contractGenerated = 0;
             $new->save();
         }
@@ -84,21 +105,6 @@ class ReconStagesController extends Controller
         $last = Internship::orderBy('id', 'desc')->take($i)->get();
         $selected = Internship::all()->whereIn('id', $chosen);
         return view('reconstages.reconmade')->with(compact('selected', 'last'));
-    }
-
-    /**
-     * Get date who's be converted to string and return only the month
-     * @param value mixed value
-     * 
-     * @author Benjamin Delacombaz
-     * @return STRING string with month
-     */
-
-    public function getMonthInternship($value) {
-        $splitTimeStamp = explode(" ",$value);
-        $date = $splitTimeStamp[0];
-        $date = explode('-', $date);
-        return $date[1];
     }
 
     //Send value to reconMade page with function displayRecon()

@@ -57,6 +57,8 @@
         <tr>
             <td class="{{ $internship->companyName }}">{{ $internship->companie->companyName }}</td>
             <td class="{{ $internship->studentfirstname }}-{{ $internship->studentlastname }}">{{ $internship->student->firstname }} {{ $internship->student->lastname }}</td>
+            <td>{{ $internship->beginDate }}</td>
+            <td>{{ $internship->endDate }}</td>
         </tr>
     @endforeach
     </table>
