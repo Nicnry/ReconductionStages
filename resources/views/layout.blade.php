@@ -52,9 +52,6 @@
         <tr>
             <td><a href="/documents"><img alt="Documents" src="/images/documents.png">Documents</a></td>
         </tr>
-        <tr>
-            <td><a href="/reconstages">Reconduction</a></td>
-        </tr>
         @if (CPNVEnvironment\Environment::currentUser()->getLevel() > 1)
             <tr>
                 <td><a href="/admin"><img alt="mp" src="/images/MP.png">Admin</a></td>
