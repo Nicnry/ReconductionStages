@@ -32,8 +32,8 @@
             <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
                 <tr class="{{ strtolower($value->student->initials) }}">
                     <td>{{ $value->companie->companyName }}</td>
-                    <td>{{ $value->beginDate }}</td>
-                    <td>{{ $value->endDate }}</td>
+                    <td>{{ $value->beginDate->toFormattedDateString() }}</td>
+                    <td>{{ $value->endDate->toFormattedDateString() }}</td>
                     <td>{{ $value->responsible->firstname }} {{ $value->responsible->lastname }}</td>
                     <td>{{ $value->admin->firstname }} {{ $value->admin->lastname }}</td>
                     <td>{{ $value->student->firstname }} {{ $value->student->lastname }}</td>
@@ -42,25 +42,6 @@
                 </tr>
             @endforeach
         </tbody>
-    </table>
-
-    <h2>Reconduction effectuée de :</h2>
-
-    <table class="reconduit">
-        <tr>
-            <th>Entreprise</th>
-            <th>Stagiaire</th>
-        </tr>
-        
-    @foreach ($selected as $internship)
-    <!-- Les données sont reprises tel que sur la page précédentes mais on y affiche uniquement ceux qui on été traité sur la page précédente. -->
-        <tr>
-            <td class="{{ $internship->companyName }}">{{ $internship->companie->companyName }}</td>
-            <td class="{{ $internship->studentfirstname }}-{{ $internship->studentlastname }}">{{ $internship->student->firstname }} {{ $internship->student->lastname }}</td>
-            <td>{{ $internship->beginDate }}</td>
-            <td>{{ $internship->endDate }}</td>
-        </tr>
-    @endforeach
     </table>
     <a href="/"><button class="btn btn-default">Retour à la page d'accueil</button></a>
 @stop

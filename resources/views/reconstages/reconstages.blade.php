@@ -32,8 +32,8 @@
                 @foreach ($internships as $internship)
                     <tr class="{{ strtolower($internship->student->initials) }}">
                         <td><input name="company" value="{{ $internship->companie->id }}" type="hidden">{{ $internship->companie->companyName }}</td>
-                        <td>{{ $internship->beginDate }}</td>
-                        <td>{{ $internship->endDate }}</td>
+                        <td>{{ $internship->beginDate->toFormattedDateString() }}</td>
+                        <td>{{ $internship->endDate->toFormattedDateString() }}</td>
                         <td>{{ $internship->responsible->firstname }} {{ $internship->responsible->lastname }}</td>
                         <td>{{ $internship->admin->firstname }} {{ $internship->admin->lastname }}</td>
                         <td>{{ $internship->student->firstname }} {{ $internship->student->lastname }}</td>
